@@ -207,7 +207,7 @@ function copyPublicFolder() {
   fs.copySync(paths.appPublic, paths.appBuild, {
     dereference: true,
     filter: file => (file !== paths.indexHtml ||
-                     file !== paths.loginHtml /*||
-                     file !== paths.registerHtml*/),
+                     file !== paths.loginHtml ||
+                     file !== paths.registerHtml),
   });
 }

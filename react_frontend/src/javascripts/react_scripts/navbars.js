@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class TopNavBar extends React.Component
+export class TopNavBar extends React.Component
 {
   render()
   {
@@ -32,7 +32,7 @@ class TopNavBar extends React.Component
   }
 }
 
-class SideNavBar extends React.Component
+export class SideNavBar extends React.Component
 {
   render()
   {

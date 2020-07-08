@@ -158,7 +158,7 @@ module.exports = function(webpackEnv) {
       paths.indexJs,
       paths.navbarJs,
       paths.loginJs,
-      // paths.registerJs,
+      paths.registerJs,
 
 
       // We include the app code last so that if there is a runtime error during
@@ -568,7 +568,7 @@ module.exports = function(webpackEnv) {
             : undefined
         )
       ),
-      /*new HtmlWebpackPlugin(
+      new HtmlWebpackPlugin(
         Object.assign(
           {},
           {
@@ -593,7 +593,7 @@ module.exports = function(webpackEnv) {
               }
             : undefined
         )
-      ),*/
+      ),
 
 
       // Inlines the webpack runtime script. This script is too small to warrant
