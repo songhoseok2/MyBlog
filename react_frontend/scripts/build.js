@@ -206,7 +206,8 @@ function build(previousFileSizes) {
 function copyPublicFolder() {
   fs.copySync(paths.appPublic, paths.appBuild, {
     dereference: true,
-    filter: file => (file !== paths.indexHtml ||
+    filter: file => (file !== paths.layoutHtml ||
+                     file !== paths.indexHtml ||
                      file !== paths.loginHtml ||
                      file !== paths.registerHtml),
   });

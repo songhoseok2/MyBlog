@@ -10,7 +10,7 @@
     "../../templates/login.html": "/static/react/../../templates/login.html",
     "../../templates/register.html": "/static/react/../../templates/register.html",
     "js/2.dbf582fc.chunk.js.LICENSE.txt": "/static/react/js/2.dbf582fc.chunk.js.LICENSE.txt",
-    "precache-manifest.1ef8396b497f2f5de360d0c1c604077b.js": "/static/react/precache-manifest.1ef8396b497f2f5de360d0c1c604077b.js",
+    "precache-manifest.1d66aa046316a80317b649703d14f7d2.js": "/static/react/precache-manifest.1d66aa046316a80317b649703d14f7d2.js",
     "service-worker.js": "/static/react/service-worker.js"
   },
   "entrypoints": [

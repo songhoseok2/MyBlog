@@ -542,6 +542,7 @@ module.exports = function(webpackEnv) {
             : undefined
         )
       ),
+
       new HtmlWebpackPlugin(
         Object.assign(
           {},
