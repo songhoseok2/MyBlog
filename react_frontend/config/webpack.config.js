@@ -522,7 +522,7 @@ module.exports = function(webpackEnv) {
           {
             inject: true,
             template: paths.indexHtml,
-            filename: "../../templates/index.html"
+            filename: "../../blog_package/templates/index.html"
           },
           isEnvProduction
             ? {
@@ -549,7 +549,7 @@ module.exports = function(webpackEnv) {
           {
             inject: true,
             template: paths.loginHtml,
-            filename: "../../templates/login.html"
+            filename: "../../blog_package/templates/login.html"
           },
           isEnvProduction
             ? {
@@ -575,7 +575,7 @@ module.exports = function(webpackEnv) {
           {
             inject: true,
             template: paths.registerHtml,
-            filename: "../../templates/register.html"
+            filename: "../../blog_package/templates/register.html"
           },
           isEnvProduction
             ? {

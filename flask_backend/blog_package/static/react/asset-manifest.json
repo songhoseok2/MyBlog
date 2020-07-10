@@ -6,11 +6,11 @@
     "runtime-main.js.map": "/static/react/js/runtime-main.d778379c.js.map",
     "js/2.dbf582fc.chunk.js": "/static/react/js/2.dbf582fc.chunk.js",
     "js/2.dbf582fc.chunk.js.map": "/static/react/js/2.dbf582fc.chunk.js.map",
-    "../../blog_package/templates/index.html": "/static/react/../../blog_package/templates/index.html",
-    "../../blog_package/templates/login.html": "/static/react/../../blog_package/templates/login.html",
-    "../../blog_package/templates/register.html": "/static/react/../../blog_package/templates/register.html",
+    "../../templates/index.html": "/static/react/../../templates/index.html",
+    "../../templates/login.html": "/static/react/../../templates/login.html",
+    "../../templates/register.html": "/static/react/../../templates/register.html",
     "js/2.dbf582fc.chunk.js.LICENSE.txt": "/static/react/js/2.dbf582fc.chunk.js.LICENSE.txt",
-    "precache-manifest.e599d1f4c6a1a78ad0507626530c05d8.js": "/static/react/precache-manifest.e599d1f4c6a1a78ad0507626530c05d8.js",
+    "precache-manifest.8fb4f52d81d0911dbad4cbf6361eb020.js": "/static/react/precache-manifest.8fb4f52d81d0911dbad4cbf6361eb020.js",
     "service-worker.js": "/static/react/service-worker.js"
   },
   "entrypoints": [

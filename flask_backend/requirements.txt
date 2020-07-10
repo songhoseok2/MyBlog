@@ -2,3 +2,4 @@ flask
 flask-wtf
 flask-sqlalchemy
 email_validator
+flask_bcrypt
