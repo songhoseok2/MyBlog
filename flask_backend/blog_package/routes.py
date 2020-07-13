@@ -46,7 +46,8 @@ posts = [
 
 @app.route('/')
 def renderHomePage():
-    return render_template("index.html", posts=posts, token="flask react", is_logged_in=current_user.is_authenticated)
+    print("DEBUG: is_logged_in: ", current_user.is_authenticated, flush=True)
+    return render_template("index.html", posts=posts, token="flask react", is_logged_in=str(current_user.is_authenticated))
 
 @app.route('/about')
 def renderAbout():

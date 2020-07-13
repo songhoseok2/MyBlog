@@ -17,6 +17,10 @@ export class TopNavBar extends React.Component
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <a class="nav-item nav-link" href="/">Home</a>
+                        <a class="nav-item nav-link" href="/about">About</a>
+                    </div>
                     <div id="user_profile_section_id"></div>
                 </div>
             </div>
@@ -58,10 +62,9 @@ export class UserProfileSection extends React.Component
       return (
         <div>
             {is_logged_in ? (
-                <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="/">Home</a>
-                    <a class="nav-item nav-link" href="/about">About</a>
-                </div>
+                <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/logout">Log out</a>
+            </div>
             ) : (
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="/login">Login</a>
@@ -76,7 +79,9 @@ export class UserProfileSection extends React.Component
 
 var top_navbar_div = document.getElementById("top_navbar_id");
 var side_navbar_div = document.getElementById("side_navbar_id");
-var is_logged_in = {...(top_navbar_div.dataset)};
+var is_logged_in_str = top_navbar_div.getAttribute("is_logged_in");
+var is_logged_in = (is_logged_in_str === 'True');
+
 
 console.log("type of is_logged_in: ", typeof(is_logged_in), " and the actual data is: ", is_logged_in);
 
