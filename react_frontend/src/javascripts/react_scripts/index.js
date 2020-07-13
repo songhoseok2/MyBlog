@@ -6,14 +6,8 @@ class BlogPosts extends React.Component
   render()
   {
     var posts_string = this.props.posts.posts.toString();
-    console.log("posts_string: ", typeof(posts_string), " data: ", posts_string);
     posts_string = posts_string.replace(/\'/g, "\"");
-
-
-    var converted_to_json2 = JSON.parse(posts_string);
-    console.log("converted_to_json2: ", typeof(converted_to_json2), " data: ", converted_to_json2);
-
-    const listItems = converted_to_json2.map((post) =>
+    const listItems = JSON.parse(posts_string).map((post) =>
     {
       return(
         <article class="media content-section">

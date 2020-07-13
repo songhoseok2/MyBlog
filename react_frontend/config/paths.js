@@ -52,7 +52,7 @@ const resolveModule = (resolveFn, filePath) => {
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
-  appBuild: resolveApp('../flask_backend/static/react'),
+  appBuild: resolveApp('../flask_backend/blog_package/static/react'),
   appPublic: resolveApp('public'),
 
 

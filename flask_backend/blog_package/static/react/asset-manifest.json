@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.js": "/static/react/js/main.8045d40e.chunk.js",
-    "main.js.map": "/static/react/js/main.8045d40e.chunk.js.map",
-    "runtime-main.js": "/static/react/js/runtime-main.d778379c.js",
-    "runtime-main.js.map": "/static/react/js/runtime-main.d778379c.js.map",
-    "js/2.dbf582fc.chunk.js": "/static/react/js/2.dbf582fc.chunk.js",
-    "js/2.dbf582fc.chunk.js.map": "/static/react/js/2.dbf582fc.chunk.js.map",
-    "../../templates/index.html": "/static/react/../../templates/index.html",
-    "../../templates/login.html": "/static/react/../../templates/login.html",
-    "../../templates/register.html": "/static/react/../../templates/register.html",
-    "js/2.dbf582fc.chunk.js.LICENSE.txt": "/static/react/js/2.dbf582fc.chunk.js.LICENSE.txt",
-    "precache-manifest.8fb4f52d81d0911dbad4cbf6361eb020.js": "/static/react/precache-manifest.8fb4f52d81d0911dbad4cbf6361eb020.js",
-    "service-worker.js": "/static/react/service-worker.js"
+    "main.js": "../../static/react/js/main.94e20537.chunk.js",
+    "main.js.map": "../../static/react/js/main.94e20537.chunk.js.map",
+    "runtime-main.js": "../../static/react/js/runtime-main.4aba4423.js",
+    "runtime-main.js.map": "../../static/react/js/runtime-main.4aba4423.js.map",
+    "js/2.7065c689.chunk.js": "../../static/react/js/2.7065c689.chunk.js",
+    "js/2.7065c689.chunk.js.map": "../../static/react/js/2.7065c689.chunk.js.map",
+    "../../templates/index.html": "../../static/react/../../templates/index.html",
+    "../../templates/login.html": "../../static/react/../../templates/login.html",
+    "../../templates/register.html": "../../static/react/../../templates/register.html",
+    "js/2.7065c689.chunk.js.LICENSE.txt": "../../static/react/js/2.7065c689.chunk.js.LICENSE.txt",
+    "precache-manifest.e44054da2ecd187148bf094137c0a56c.js": "../../static/react/precache-manifest.e44054da2ecd187148bf094137c0a56c.js",
+    "service-worker.js": "../../static/react/service-worker.js"
   },
   "entrypoints": [
-    "js/runtime-main.d778379c.js",
-    "js/2.dbf582fc.chunk.js",
-    "js/main.8045d40e.chunk.js"
+    "js/runtime-main.4aba4423.js",
+    "js/2.7065c689.chunk.js",
+    "js/main.94e20537.chunk.js"
   ]
 }
