@@ -595,6 +595,32 @@ module.exports = function(webpackEnv) {
             : undefined
         )
       ),
+      new HtmlWebpackPlugin(
+        Object.assign(
+          {},
+          {
+            inject: true,
+            template: paths.accountHtml,
+            filename: "../../templates/account.html"
+          },
+          isEnvProduction
+            ? {
+                minify: {
+                  removeComments: true,
+                  collapseWhitespace: true,
+                  removeRedundantAttributes: true,
+                  useShortDoctype: true,
+                  removeEmptyAttributes: true,
+                  removeStyleLinkTypeAttributes: true,
+                  keepClosingSlash: true,
+                  minifyJS: true,
+                  minifyCSS: true,
+                  minifyURLs: true,
+                },
+              }
+            : undefined
+        )
+      ),
 
 
       // Inlines the webpack runtime script. This script is too small to warrant

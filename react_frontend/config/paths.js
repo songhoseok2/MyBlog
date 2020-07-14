@@ -60,7 +60,7 @@ module.exports = {
   navbarJs: resolveModule(resolveApp, 'src/javascripts/react_scripts/navbars'),
   loginHtml: resolveApp('public/login.html'),
   registerHtml: resolveApp('public/register.html'), registerJs: resolveModule(resolveApp, 'src/javascripts/react_scripts/register'),
-
+  accountHtml: resolveApp('public/account.html'),
 
 
   appPackageJson: resolveApp('package.json'),
