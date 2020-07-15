@@ -4,3 +4,4 @@ flask-sqlalchemy
 email_validator
 flask_bcrypt
 flask-login
+secrets
