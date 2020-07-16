@@ -211,6 +211,7 @@ function copyPublicFolder() {
                      file !== paths.registerHtml ||
                      file !== paths.accountHtml ||
                      file !== paths.createPostHtml ||
-                     file !== paths.postHtml),
+                     file !== paths.postHtml ||
+                     file !== paths.userPostsHtml),
   });
 }

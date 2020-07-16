@@ -63,6 +63,7 @@ module.exports = {
   accountHtml: resolveApp('public/account.html'),
   createPostHtml: resolveApp('public/create_post.html'),
   postHtml: resolveApp('public/post.html'),
+  userPostsHtml: resolveApp('public/user_posts.html'),
 
 
   appPackageJson: resolveApp('package.json'),

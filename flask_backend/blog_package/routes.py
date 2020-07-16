@@ -145,7 +145,12 @@ def deletePost(post_id):
     return redirect(url_for("renderHomePage"))
 
 
-
+@app.route("/user/<string:selected_username>")
+def renderUserPosts(selected_username):
+    page_to_access = request.args.get("page", 1, type=int)
+    selected_user = User.query.filter_by(username=selected_username).first_or_404()
+    queried_user_posts = Post.query.filter_by(author=selected_user).order_by(Post.date_posted.desc()).paginate(page=page_to_access, per_page=5)
+    return render_template("user_posts.html", posts=queried_user_posts, user=selected_user, is_logged_in=str(current_user.is_authenticated))
 
 
 
