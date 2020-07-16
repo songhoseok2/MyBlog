@@ -4,10 +4,6 @@
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
-          
-          
-
-
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
@@ -15,6 +11,10 @@
               {% endfor %}
             {% endif %}
           {% endwith %}
+
+
+
+          
           <div class="content-section">
             <div class="media">
               <img class="rounded-circle account-img" src="{{ image_file }}">

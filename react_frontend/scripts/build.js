@@ -209,6 +209,8 @@ function copyPublicFolder() {
     filter: file => (file !== paths.indexHtml ||
                      file !== paths.loginHtml ||
                      file !== paths.registerHtml ||
-                     file !== paths.accountHtml),
+                     file !== paths.accountHtml ||
+                     file !== paths.createPostHtml ||
+                     file !== paths.postHtml),
   });
 }

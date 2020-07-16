@@ -62,6 +62,7 @@ export class UserProfileSection extends React.Component
         {this.props.is_logged_in ? 
         (
           <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/post/new">New post</a>
             <a class="nav-item nav-link" href="/account">Account</a>
             <a class="nav-item nav-link" href="/logout">Log out</a>
           </div>
@@ -79,6 +80,7 @@ export class UserProfileSection extends React.Component
 
 var top_navbar_div = document.getElementById("top_navbar_id");
 var side_navbar_div = document.getElementById("side_navbar_id");
+// var user_profile_section_div =  ;
 var is_logged_in_str = top_navbar_div.getAttribute("is_logged_in");
 var is_logged_in = (is_logged_in_str === 'True');
 

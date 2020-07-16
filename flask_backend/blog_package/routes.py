@@ -1,59 +1,22 @@
 import os
 import secrets
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from blog_package import app, db, bcrypt
-from blog_package.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from blog_package.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from blog_package.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
-posts = [
-    {
-        "author": "John",
-        "title": "Blog Post 1",
-        "content": "First pots content",
-        "date_posted": "April 20, 2018"
-    },
-    {
-        "author": "Dave",
-        "title": "Blog Post 2",
-        "content": "Second post content",
-        "date_posted": "June 21, 2013"
-    },
-    {
-        "author": "John",
-        "title": "Blog Post 1",
-        "content": "First pots content",
-        "date_posted": "April 20, 2018"
-    },
-    {
-        "author": "Dave",
-        "title": "Blog Post 2",
-        "content": "Second post content",
-        "date_posted": "June 21, 2013"
-    },
-    {
-        "author": "John",
-        "title": "Blog Post 1",
-        "content": "First pots content",
-        "date_posted": "April 20, 2018"
-    },
-    {
-        "author": "Dave",
-        "title": "Blog Post 2",
-        "content": "Second post content",
-        "date_posted": "June 21, 2013"
-    }
-]
-
-
 @app.route('/')
 def renderHomePage():
-    return render_template("index.html", posts=posts, token="flask react", is_logged_in=str(current_user.is_authenticated))
+    queried_all_posts = Post.query.all()
+    return render_template("index.html", posts=queried_all_posts, is_logged_in=str(current_user.is_authenticated))
+
 
 @app.route('/about')
 def renderAbout():
     return render_template("about.html", is_logged_in=str(current_user.is_authenticated))
+
 
 @app.route("/register", methods=["GET", "POST"])
 def renderRegister():
@@ -69,6 +32,7 @@ def renderRegister():
         flash(f"Account created for {form.username.data}!", "success")
         return redirect(url_for("renderLogin"))
     return render_template("register.html", title="Register", form=form, is_logged_in=str(current_user.is_authenticated))
+
 
 @app.route("/login", methods=["GET", "POST"])
 def renderLogin():
@@ -86,10 +50,12 @@ def renderLogin():
             flash("Login unsuccessful. Please check email and/or password.", "danger")
     return render_template("login.html", title="Login", form=form, is_logged_in=str(current_user.is_authenticated))
 
+
 @app.route("/logout")
 def renderLogout():
     logout_user()
     return redirect(url_for("renderHomePage"))
+
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
@@ -101,6 +67,7 @@ def save_picture(form_picture):
     resized_img.thumbnail(output_size)
     resized_img.save(picture_path)
     return picture_fn
+
 
 @app.route("/account",  methods=["GET", "POST"])
 @login_required
@@ -120,5 +87,65 @@ def renderAccount():
         form.username.data = current_user.username
         form.email.data = current_user.email
     image_file = url_for("static", filename="profile_pics/" + current_user.image_file)
-    return render_template("account.html", title="Account", is_logged_in=str(current_user.is_authenticated), image_file=image_file, form=form)
+    return render_template("account.html", title="Account", image_file=image_file, form=form, is_logged_in=str(current_user.is_authenticated))
+
+
+@app.route("/post/new", methods=["GET", "POST"])
+@login_required
+def makeNewPost():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash("Your post has been created.", "success")
+        return redirect(url_for("renderHomePage"))
+
+    return render_template("create_post.html", title="New Post", form=form, legend="New post", is_logged_in=str(current_user.is_authenticated))
+
+
+@app.route("/post/<int:post_id>")
+def renderPost(post_id):
+    queried_post = Post.query.get_or_404(post_id)
+    return render_template("post.html", title=queried_post.title, post=queried_post, is_logged_in=str(current_user.is_authenticated))
+
+
+@app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
+@login_required
+def updatePost(post_id):
+    queried_post = Post.query.get_or_404(post_id)
+    if queried_post.author != current_user:
+        abort(403)
+    form = PostForm()
+
+    if form.validate_on_submit():
+        queried_post.title = form.title.data
+        queried_post.content = form.content.data
+        db.session.commit()
+        flash("Your post has been updated.", "success")
+        return redirect(url_for("renderPost", post_id=queried_post.id))
+    elif request.method == "GET":
+        form.title.data = queried_post.title
+        form.content.data = queried_post.content
+
+    form.title.data = queried_post.title
+    form.content.data = queried_post.content
+    return render_template("create_post.html", title="New Post", form=form, legend="Update post", is_logged_in=str(current_user.is_authenticated))
+
+@app.route("/post/<int:post_id>/delete", methods=["POST"])
+@login_required
+def deletePost(post_id):
+    queried_post = Post.query.get_or_404(post_id)
+    if queried_post.author != current_user:
+        abort(403)
+    db.session.delete(queried_post)
+    db.session.commit()
+    flash("Your post was deleted.", "success")
+    return redirect(url_for("renderHomePage"))
+
+
+
+
+
+
 

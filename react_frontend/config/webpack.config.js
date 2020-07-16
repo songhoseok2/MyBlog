@@ -569,6 +569,7 @@ module.exports = function(webpackEnv) {
             : undefined
         )
       ),
+
       new HtmlWebpackPlugin(
         Object.assign(
           {},
@@ -595,6 +596,7 @@ module.exports = function(webpackEnv) {
             : undefined
         )
       ),
+
       new HtmlWebpackPlugin(
         Object.assign(
           {},
@@ -602,6 +604,60 @@ module.exports = function(webpackEnv) {
             inject: true,
             template: paths.accountHtml,
             filename: "../../templates/account.html"
+          },
+          isEnvProduction
+            ? {
+                minify: {
+                  removeComments: true,
+                  collapseWhitespace: true,
+                  removeRedundantAttributes: true,
+                  useShortDoctype: true,
+                  removeEmptyAttributes: true,
+                  removeStyleLinkTypeAttributes: true,
+                  keepClosingSlash: true,
+                  minifyJS: true,
+                  minifyCSS: true,
+                  minifyURLs: true,
+                },
+              }
+            : undefined
+        )
+      ),
+
+      new HtmlWebpackPlugin(
+        Object.assign(
+          {},
+          {
+            inject: true,
+            template: paths.createPostHtml,
+            filename: "../../templates/create_post.html"
+          },
+          isEnvProduction
+            ? {
+                minify: {
+                  removeComments: true,
+                  collapseWhitespace: true,
+                  removeRedundantAttributes: true,
+                  useShortDoctype: true,
+                  removeEmptyAttributes: true,
+                  removeStyleLinkTypeAttributes: true,
+                  keepClosingSlash: true,
+                  minifyJS: true,
+                  minifyCSS: true,
+                  minifyURLs: true,
+                },
+              }
+            : undefined
+        )
+      ),
+
+      new HtmlWebpackPlugin(
+        Object.assign(
+          {},
+          {
+            inject: true,
+            template: paths.postHtml,
+            filename: "../../templates/post.html"
           },
           isEnvProduction
             ? {
