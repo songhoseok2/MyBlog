@@ -212,6 +212,8 @@ function copyPublicFolder() {
                      file !== paths.accountHtml ||
                      file !== paths.createPostHtml ||
                      file !== paths.postHtml ||
-                     file !== paths.userPostsHtml),
+                     file !== paths.userPostsHtml ||
+                     file !== paths.resetRequestHtml ||
+                     file !== paths.resetTokenHtml),
   });
 }

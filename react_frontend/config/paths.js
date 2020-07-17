@@ -64,7 +64,8 @@ module.exports = {
   createPostHtml: resolveApp('public/create_post.html'),
   postHtml: resolveApp('public/post.html'),
   userPostsHtml: resolveApp('public/user_posts.html'),
-
+  resetRequestHtml: resolveApp('public/reset_request.html'),
+  resetTokenHtml: resolveApp('public/reset_token.html'),
 
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
