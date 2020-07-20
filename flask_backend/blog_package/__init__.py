@@ -7,27 +7,26 @@ from flask_mail import Mail
 
 app = Flask(__name__)
 
-
-
-
-f = open("../private_variables/secret_key.txt", 'r')
-app.config["SECRET_KEY"] = f.read()
-f.close()
+cur_path = os.path.dirname(__file__)
+secret_key_file = open(cur_path + "/private_variables/secret_key.txt", 'r')
+app.config["SECRET_KEY"] = secret_key_file.read()
+secret_key_file.close()
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = "renderLogin"
 login_manager.login_message_category = "info"
-app.config["MAIL_SERVER"] = "smtp.googlemail.com"
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
 app.config["MAIL_USE_TLS"] = True
-f2 = open("../private_variables/email_address.txt", 'r')
-f3 = open("../private_variables/email_password.txt", 'r')
-app.config["MAIL_USERNAME"] = f2.read()
-app.config["MAIL_PASSWORD"] = f3.read()
-f2.close()
-f3.close()
+
+email_address_file = open(cur_path + "/private_variables/email_address.txt", 'r')
+email_password_file = open(cur_path + "/private_variables/email_password.txt", 'r')
+app.config["MAIL_USERNAME"] = email_address_file.read()
+app.config["MAIL_PASSWORD"] = email_password_file.read()
+email_address_file.close()
+email_password_file.close()
 
 mail = Mail(app)
 

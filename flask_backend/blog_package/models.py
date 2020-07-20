@@ -22,8 +22,9 @@ class User(db.Model, UserMixin):
     @staticmethod
     def verify_reset_token(token):
         s = Serializer(app.config["SECRET_KEY"])
+        user_id = None
         try:
-            user_id: s.loads(token)["user_id"]
+            user_id = s.loads(token)["user_id"]
         except:
             return None
         return User.query.get(user_id)

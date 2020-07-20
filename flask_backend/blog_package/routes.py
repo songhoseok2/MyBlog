@@ -156,12 +156,13 @@ def renderUserPosts(selected_username):
 
 def sendResetEmail(user):
     token = user.get_reset_token()
-    msg = Message("Password Reset Request", sender="noreply@demo.com", recipients=[user.email])
+    msg = Message("Password Reset Request", sender=app.config["MAIL_USERNAME"], recipients=[user.email])
     msg.body = f'''To reset your password, visit the following link: 
 {url_for("renderResetToken", token=token, _external=True)}
 
 If you did not make this request then simply ignore this email and no change will be made
     '''
+    mail.send(msg)
 
 
 @app.route("/reset_password", methods=["GET", "POST"])
@@ -171,14 +172,14 @@ def renderResetRequest():
     form = RequestResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        sned_reset_email(user)
-        flash("An email has been sent with instructions to reset your password.", "info")
+        sendResetEmail(user)
+        flash("An email has been sent with instructions to reset your password. If you don't see any mail in your inbox, please check your spams folder.", "info")
         return redirect(url_for("renderLogin"))
     return render_template("reset_request.html", title="Reset Password", form=form, is_logged_in=str(current_user.is_authenticated))
 
 
 @app.route("/reset_password/<token>", methods=["GET", "POST"])
-def renderResetToken():
+def renderResetToken(token):
     if current_user.is_authenticated:
         return redirect(url_for("renderHomePage"))
     user = User.verify_reset_token(token)
