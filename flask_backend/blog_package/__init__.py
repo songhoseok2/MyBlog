@@ -15,7 +15,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
-login_manager.login_view = "renderLogin"
+login_manager.login_view = "users.renderLogin"
 login_manager.login_message_category = "info"
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
@@ -30,4 +30,10 @@ email_password_file.close()
 
 mail = Mail(app)
 
-from blog_package import routes
+from blog_package.users.routes import users
+from blog_package.posts.routes import posts
+from blog_package.main.routes import main
+app.register_blueprint(users)
+app.register_blueprint(posts)
+app.register_blueprint(main)
+

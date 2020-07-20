@@ -54,7 +54,7 @@
               <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
                 <small class="text-muted ml-2">
-                  <a href="{{ url_for('renderResetRequest') }}">Forgot password?</a>
+                  <a href="{{ url_for('users.renderResetRequest') }}">Forgot password?</a>
                 </small>
               </div>
             </form>
@@ -62,7 +62,7 @@
           
           <div class="border-top pt-3">
             <small class="text-muted">
-              Need an account? <a class="ml-2" href="{{ url_for('renderRegister') }}">Sign Up</a>
+              Need an account? <a class="ml-2" href="{{ url_for('users.renderRegister') }}">Sign Up</a>
             </small>
           </div>
         </div>
