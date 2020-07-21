@@ -66,6 +66,10 @@ module.exports = {
   userPostsHtml: resolveApp('public/user_posts.html'),
   resetRequestHtml: resolveApp('public/reset_request.html'),
   resetTokenHtml: resolveApp('public/reset_token.html'),
+  error403Html: resolveApp('public/errors/403.html'),
+  error404Html: resolveApp('public/errors/404.html'),
+  error500Html: resolveApp('public/errors/500.html'),
+
 
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),

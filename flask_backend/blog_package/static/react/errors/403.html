@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<body>
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+
+
+
+        <div class="content-section">
+          <h1>You don't have permission to access this page. (403)</h1>
+          <p>Please check your account and try again.</p>
+        </div>
+
+
+
+
+        </div>
+        <div class="col-md-4">
+          <div id="side_navbar_id"></div>
+        </div>
+      </div>
+    </main>
+  </body>
+{% endblock content %}

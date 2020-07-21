@@ -8,6 +8,9 @@
     "js/2.13f5b589.chunk.js.map": "../../static/react/js/2.13f5b589.chunk.js.map",
     "../../templates/account.html": "../../static/react/../../templates/account.html",
     "../../templates/create_post.html": "../../static/react/../../templates/create_post.html",
+    "../../templates/errors/403.html": "../../static/react/../../templates/errors/403.html",
+    "../../templates/errors/404.html": "../../static/react/../../templates/errors/404.html",
+    "../../templates/errors/500.html": "../../static/react/../../templates/errors/500.html",
     "../../templates/index.html": "../../static/react/../../templates/index.html",
     "../../templates/login.html": "../../static/react/../../templates/login.html",
     "../../templates/post.html": "../../static/react/../../templates/post.html",
@@ -16,7 +19,7 @@
     "../../templates/reset_token.html": "../../static/react/../../templates/reset_token.html",
     "../../templates/user_posts.html": "../../static/react/../../templates/user_posts.html",
     "js/2.13f5b589.chunk.js.LICENSE.txt": "../../static/react/js/2.13f5b589.chunk.js.LICENSE.txt",
-    "precache-manifest.c9b5b643650c651eeba862ca4743fcfe.js": "../../static/react/precache-manifest.c9b5b643650c651eeba862ca4743fcfe.js",
+    "precache-manifest.3b09a8fa8580a10a5faeffdfab84ad6c.js": "../../static/react/precache-manifest.3b09a8fa8580a10a5faeffdfab84ad6c.js",
     "service-worker.js": "../../static/react/service-worker.js"
   },
   "entrypoints": [

@@ -214,6 +214,9 @@ function copyPublicFolder() {
                      file !== paths.postHtml ||
                      file !== paths.userPostsHtml ||
                      file !== paths.resetRequestHtml ||
-                     file !== paths.resetTokenHtml),
+                     file !== paths.resetTokenHtml ||
+                     file !== paths.error403Html ||
+                     file !== paths.error404Html ||
+                     file !== paths.error500Html),
   });
 }
