@@ -34,7 +34,7 @@ yarn-error.log*
 
 #FLASK IGNORE#
 .DS_Store
-.env
+#.env
 .flaskenv
 *.pyc
 *.pyo
