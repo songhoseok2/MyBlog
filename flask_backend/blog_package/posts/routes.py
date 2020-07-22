@@ -18,13 +18,13 @@ def makeNewPost():
         flash("Your post has been created.", "success")
         return redirect(url_for("main.renderHomePage"))
 
-    return render_template("create_post.html", title="New Post", form=form, legend="New post", is_logged_in=str(current_user.is_authenticated))
+    return render_template("create_post.html", title="New Post", form=form, legend="New post", logged_in_username=str(current_user.username))
 
 
 @posts.route("/post/<int:post_id>")
 def renderPost(post_id):
     queried_post = Post.query.get_or_404(post_id)
-    return render_template("post.html", title=queried_post.title, post=queried_post, is_logged_in=str(current_user.is_authenticated))
+    return render_template("post.html", title=queried_post.title, post=queried_post, logged_in_username=str(current_user.username))
 
 
 @posts.route("/post/<int:post_id>/update", methods=["GET", "POST"])
@@ -47,7 +47,7 @@ def updatePost(post_id):
 
     form.title.data = queried_post.title
     form.content.data = queried_post.content
-    return render_template("create_post.html", title="New Post", form=form, legend="Update post", is_logged_in=str(current_user.is_authenticated))
+    return render_template("create_post.html", title="New Post", form=form, legend="Update post", logged_in_username=str(current_user.username))
 
 
 @posts.route("/post/<int:post_id>/delete", methods=["POST"])

@@ -22,7 +22,7 @@ def renderRegister():
         db.session.commit()
         flash(f"Account created for {form.username.data}!", "success")
         return redirect(url_for("main.renderLogin"))
-    return render_template("register.html", title="Register", form=form, is_logged_in=str(current_user.is_authenticated))
+    return render_template("register.html", title="Register", form=form, logged_in_user=str(current_user.username))
 
 
 @users.route("/login", methods=["GET", "POST"])
@@ -39,7 +39,7 @@ def renderLogin():
             return redirect(next_page) if next_page else redirect(url_for("main.renderHomePage"))
         else:
             flash("Login unsuccessful. Please check email and/or password.", "danger")
-    return render_template("login.html", title="Login", form=form, is_logged_in=str(current_user.is_authenticated))
+    return render_template("login.html", title="Login", form=form, logged_in_user=str(current_user.username))
 
 
 @users.route("/logout")
@@ -66,15 +66,18 @@ def renderAccount():
         form.username.data = current_user.username
         form.email.data = current_user.email
     image_file = url_for("static", filename="profile_pics/" + current_user.image_file)
-    return render_template("account.html", title="Account", image_file=image_file, form=form, is_logged_in=str(current_user.is_authenticated))
+    return render_template("account.html", title="Account", image_file=image_file, form=form, logged_in_user=str(current_user.username))
 
 
 @users.route("/user/<string:selected_username>")
 def renderUserPosts(selected_username):
+    if selected_username == '-':
+        flash("Please log in to view your posts.", "info")
+        return redirect(url_for("users.renderLogin"))
     page_to_access = request.args.get("page", 1, type=int)
     selected_user = User.query.filter_by(username=selected_username).first_or_404()
     queried_user_posts = Post.query.filter_by(author=selected_user).order_by(Post.date_posted.desc()).paginate(page=page_to_access, per_page=5)
-    return render_template("user_posts.html", posts=queried_user_posts, user=selected_user, is_logged_in=str(current_user.is_authenticated))
+    return render_template("user_posts.html", posts=queried_user_posts, user=selected_user, logged_in_username=str(current_user.username))
 
 
 @users.route("/reset_password", methods=["GET", "POST"])
@@ -87,7 +90,7 @@ def renderResetRequest():
         sendResetEmail(user)
         flash("An email has been sent with instructions to reset your password. If you don't see any mail in your inbox, please check your spams folder.", "info")
         return redirect(url_for("users.renderLogin"))
-    return render_template("reset_request.html", title="Reset Password", form=form, is_logged_in=str(current_user.is_authenticated))
+    return render_template("reset_request.html", title="Reset Password", form=form, logged_in_username=str(current_user.username))
 
 
 @users.route("/reset_password/<token>", methods=["GET", "POST"])
@@ -105,5 +108,5 @@ def renderResetToken(token):
         db.session.commit()
         flash(f"Your password has been updated.", "success")
         return redirect(url_for("users.renderLogin"))
-    return render_template("reset_token.html", title="Reset Password", form=form, is_logged_in=str(current_user.is_authenticated))
+    return render_template("reset_token.html", title="Reset Password", form=form, logged_in_username=str(current_user.username))
 

@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
+from flask_login import LoginManager, AnonymousUserMixin
 from flask_mail import Mail
 from blog_package.config import Config
 
@@ -12,6 +12,12 @@ login_manager = LoginManager()
 login_manager.login_view = "users.renderLogin"
 login_manager.login_message_category = "info"
 mail = Mail()
+
+
+class Anonymous(AnonymousUserMixin):
+    def __init__(self):
+        self.username = 'Guest'
+login_manager.anonymous_user = Anonymous
 
 
 def create_app(config_class=Config):
