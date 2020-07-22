@@ -4,6 +4,13 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, AnonymousUserMixin
 from flask_mail import Mail
 from blog_package.config import Config
+from json import dumps
+
+def getCurrentUserJson(current_user):
+    return {
+        "current_user_username": current_user.username,
+        "profile_pic_name": current_user.image_file if current_user.username != "Guest" else None
+    }
 
 
 db = SQLAlchemy()

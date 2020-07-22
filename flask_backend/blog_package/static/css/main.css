@@ -62,6 +62,13 @@ a.article-title:hover
   margin-right: 16px;
 }
 
+.welcome-img
+{
+  height: 30px;
+  width: 30px;
+  /* margin-right: 16px; */
+}
+
 .article-metadata
 {
   padding-bottom: 1px;

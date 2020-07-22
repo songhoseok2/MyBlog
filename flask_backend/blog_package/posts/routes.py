@@ -1,7 +1,7 @@
 from flask import (render_template, url_for, flash,
                    redirect, request, abort, Blueprint)
 from flask_login import current_user, login_required
-from blog_package import db
+from blog_package import db, getCurrentUserJson
 from blog_package.models import Post
 from blog_package.posts.forms import PostForm
 posts = Blueprint("posts", __name__)
@@ -18,13 +18,13 @@ def makeNewPost():
         flash("Your post has been created.", "success")
         return redirect(url_for("main.renderHomePage"))
 
-    return render_template("create_post.html", title="New Post", form=form, legend="New post", logged_in_username=str(current_user.username))
+    return render_template("create_post.html", title="New Post", form=form, legend="New post", **getCurrentUserJson(current_user))
 
 
 @posts.route("/post/<int:post_id>")
 def renderPost(post_id):
     queried_post = Post.query.get_or_404(post_id)
-    return render_template("post.html", title=queried_post.title, post=queried_post, logged_in_username=str(current_user.username))
+    return render_template("post.html", title=queried_post.title, post=queried_post, **getCurrentUserJson(current_user))
 
 
 @posts.route("/post/<int:post_id>/update", methods=["GET", "POST"])
@@ -47,7 +47,7 @@ def updatePost(post_id):
 
     form.title.data = queried_post.title
     form.content.data = queried_post.content
-    return render_template("create_post.html", title="New Post", form=form, legend="Update post", logged_in_username=str(current_user.username))
+    return render_template("create_post.html", title="New Post", form=form, legend="Update post", **getCurrentUserJson(current_user))
 
 
 @posts.route("/post/<int:post_id>/delete", methods=["POST"])
