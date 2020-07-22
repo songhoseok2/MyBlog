@@ -3,6 +3,7 @@
 *.chunk.js.*
 precache-manifest.*
 site.db
+annony_blog_config.json
 
 
 

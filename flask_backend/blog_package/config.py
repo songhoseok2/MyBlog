@@ -1,7 +1,8 @@
 import os
 import json
 
-with open("/etc/annony_blog_config.json") as config_file:
+cur_path = os.path.dirname(__file__)
+with open(cur_path + "/annony_blog_config.json") as config_file:
     config = json.load(config_file)
 
 class Config:
@@ -10,5 +11,6 @@ class Config:
     MAIL_SERVER = "smtp.gmail.com"
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = config.get("EMAIL_USER")
-    MAIL_PASSWORD = config.get("EMAIL_PASS")
+    MAIL_USERNAME = config.get("MAIL_USERNAME")
+    MAIL_PASSWORD = config.get("MAIL_PASSWORD")
+
