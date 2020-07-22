@@ -4,7 +4,6 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, AnonymousUserMixin
 from flask_mail import Mail
 from blog_package.config import Config
-from json import dumps
 
 def getCurrentUserJson(current_user):
     return {

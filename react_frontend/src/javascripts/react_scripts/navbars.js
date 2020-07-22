@@ -80,8 +80,6 @@ var side_navbar_div = document.getElementById("side_navbar_id");
 var current_user_username = top_navbar_div.getAttribute("current_user_username");
 var profile_pic_name = top_navbar_div.getAttribute("profile_pic_name");
 
-
-
 if(top_navbar_div) ReactDOM.render(<TopNavBar current_user_username={current_user_username} />, top_navbar_div);
 if(side_navbar_div) ReactDOM.render(<SideNavBar />, side_navbar_div);
 
