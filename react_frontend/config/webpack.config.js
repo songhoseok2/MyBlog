@@ -155,7 +155,7 @@ module.exports = function(webpackEnv) {
 
 
       // Finally, this is your app's code:
-      paths.indexJs,
+      paths.buttonJs,
       paths.navbarJs,
       paths.loginJs,
       paths.registerJs,

@@ -56,7 +56,7 @@ module.exports = {
   appPublic: resolveApp('public'),
 
 
-  indexHtml: resolveApp('public/index.html'), indexJs: resolveModule(resolveApp, 'src/javascripts/react_scripts/index'),
+  indexHtml: resolveApp('public/index.html'),
   navbarJs: resolveModule(resolveApp, 'src/javascripts/react_scripts/navbars'),
   loginHtml: resolveApp('public/login.html'),
   registerHtml: resolveApp('public/register.html'), registerJs: resolveModule(resolveApp, 'src/javascripts/react_scripts/register'),
@@ -69,6 +69,8 @@ module.exports = {
   error403Html: resolveApp('public/errors/403.html'),
   error404Html: resolveApp('public/errors/404.html'),
   error500Html: resolveApp('public/errors/500.html'),
+
+  buttonJs: resolveModule(resolveApp, 'src/javascripts/react_scripts/buttons'),
 
 
   appPackageJson: resolveApp('package.json'),

@@ -59,14 +59,12 @@ export class SideNavBar extends React.Component
   {
     return (
       <div>
-        <div class="content-section">
-        <h3>Our Sidebar</h3>
-        <p class='text-muted'>You can put any information here you'd like.
+        <div class="content-section side_navbar">
+        <h3>Identity</h3>
+        <p class="text-muted">This is the identity you will be shown as to the public.
           <ul class="list-group">
-          <li class="list-group-item list-group-item-light">Latest Posts</li>
-          <li class="list-group-item list-group-item-light">Announcements</li>
-          <li class="list-group-item list-group-item-light">Calendars</li>
-          <li class="list-group-item list-group-item-light">etc</li>
+          <button id="reveal_button_id" class="list-group-item list-group-item-light reveal_button active"><span>Revealed</span></button>
+          <button id="incognito_button_id" class="list-group-item list-group-item-light incognito_button"><span>Incognito</span></button>
           </ul>
         </p>
         </div>

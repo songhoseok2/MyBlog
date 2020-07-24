@@ -1,0 +1,76 @@
+.reveal_button
+{
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.reveal_button span 
+{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.reveal_button span:after 
+{
+    font-family: FontAwesome;
+    content: "\f06e";
+    font-weight: 900;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.reveal_button:hover span 
+{
+  padding-right: 25px;
+}
+
+.reveal_button:hover span:after 
+{
+  opacity: 1;
+  right: 0;
+}
+
+
+
+
+.incognito_button
+{
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.incognito_button span 
+{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.incognito_button span:after 
+{
+    font-family: FontAwesome;
+    content: "\f070";
+    font-weight: 900;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.incognito_button:hover span 
+{
+  padding-right: 25px;
+}
+
+.incognito_button:hover span:after 
+{
+  opacity: 1;
+  right: 0;
+}

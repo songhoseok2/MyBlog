@@ -25,7 +25,15 @@
                     <small class="text-muted">{{ post.date_posted.strftime('%m/%d/%Y') }}</small>
                   </div>
                   <h2><a class="article-title" href="{{ url_for('posts.renderPost', post_id=post.id) }}">{{ post.title }}</a></h2>
-                  <p class="article-content">{{ post.content }}</p>
+                  <p class="article-content">
+                    {% if post.content|length > 1000 %}
+                      {{ post.content[0:750] }}
+                      ...
+                      <br>.<br>.<br>.
+                    {% else %}
+                      {{ post.content }}
+                    {% endif %}
+                  </p>
                 </div>
               </article>
             {% endfor %}
