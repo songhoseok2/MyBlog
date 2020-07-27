@@ -4,19 +4,30 @@ import ReactDOM from 'react-dom';
 
 function attachActive(new_active_button, old_active_button)
 {
-    if (!new_active_button.classList.contains("active"))
-    {
-        new_active_button.classList.add("active");
-        old_active_button.classList.remove("active");
-    }
+    new_active_button.classList.add("active");
+    old_active_button.classList.remove("active");
 }
 
 window.onload = function () {
     var reveal_button = document.getElementById("reveal_button_id");
     var incognito_button = document.getElementById("incognito_button_id");
+    var top_navbar_div = document.getElementById("top_navbar_id");
+    var is_incognito = top_navbar_div.getAttribute("is_incognito") === "True";
+    var current_user_username = top_navbar_div.getAttribute("current_user_username");
 
     if (reveal_button) reveal_button.onclick = function() { attachActive(reveal_button, incognito_button); }; 
-    if (incognito_button) incognito_button.onclick = function() { attachActive(incognito_button, reveal_button); }; 
+    if (incognito_button) incognito_button.onclick = function() { attachActive(incognito_button, reveal_button); };
+    is_incognito ? attachActive(incognito_button, reveal_button) : attachActive(reveal_button, incognito_button);
+    
+    if (current_user_username == "Guest")
+    {
+        reveal_button.classList.remove("active");
+        incognito_button.classList.remove("active");
+        reveal_button.classList.add("disabled");
+        incognito_button.classList.add("disabled");
+        document.getElementById("identity_intro_id").innerHTML = "Please log in to select identity.";
+    }
+    
 };
 
 

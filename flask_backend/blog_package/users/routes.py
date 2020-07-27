@@ -20,7 +20,7 @@ def renderRegister():
         db.session.add(user)
         db.session.commit()
         flash(f"Account created for {form.username.data}!", "success")
-        return redirect(url_for("main.renderLogin"))
+        return redirect(url_for("users.renderLogin"))
     return render_template("register.html", title="Register", form=form, **getCurrentUserJson(current_user))
 
 
@@ -64,8 +64,19 @@ def renderAccount():
     elif request.method == "GET":
         form.username.data = current_user.username
         form.email.data = current_user.email
-    image_file = url_for("static", filename="profile_pics/" + current_user.image_file)
     return render_template("account.html", title="Account", form=form, **getCurrentUserJson(current_user))
+
+
+@users.route("/<int:user_id>/<int:new_identity>/identity_change", methods=["GET", "POST"])
+@login_required
+def changeIdentity(user_id, new_identity):
+    queried_user = User.query.get_or_404(user_id)
+    if queried_user.id == current_user.id:
+        queried_user.is_incognito = True if new_identity == 1 else False
+        print("DEBUG: ", queried_user.username, "'s new is_incognito:", queried_user.is_incognito, flush=True)
+        db.session.commit()
+    # return redirect(url_for("main.renderHomePage"))
+    return ('', 204)
 
 
 @users.route("/user/<string:selected_username>")

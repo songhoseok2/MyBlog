@@ -61,28 +61,21 @@ export class SideNavBar extends React.Component
       <div>
         <div class="content-section side_navbar">
           <h3>Identity</h3>
-            {current_user_username == "Guest" ? 
-              (
-                <div>
-                  <p class="text-muted">Please log in to select identity.</p>
-                  <div class="list-group">
-                    <button id="reveal_button_id" class="list-group-item list-group-item-light reveal_button disabled"><span>Revealed</span></button>
-                    <button id="incognito_button_id" class="list-group-item list-group-item-light incognito_button disabled"><span>Incognito</span></button>
-                  </div>
+            <div>
+              <p id="identity_intro_id" class="text-muted">This is the identity you will be shown as to the public.</p>
+                <div >
+                  <form action={"/" + current_user_user_id + "/0/identity_change"} method="POST">
+                    <div class="list-group">
+                      <button id="reveal_button_id" class="list-group-item list-group-item-light btn reveal_button" type="submit"><span>Revealed</span></button>
+                    </div>
+                  </form>
+                  <form action={"/" + current_user_user_id + "/1/identity_change"} method="POST">
+                    <div class="list-group">
+                      <button id="incognito_button_id" class="list-group-item list-group-item-light btn incognito_button" type="submit"><span>Incognito</span></button>
+                    </div>
+                  </form>
                 </div>
-              ) : 
-              (
-                <div>
-                  <p class="text-muted">This is the identity you will be shown as to the public.</p>
-                  <div class="list-group">
-                    <button id="reveal_button_id" class="list-group-item list-group-item-light reveal_button active"><span>Revealed</span></button>
-                    <button id="incognito_button_id" class="list-group-item list-group-item-light incognito_button"><span>Incognito</span></button>
-                  </div>
-                </div>
-                
-              )
-            }
-          
+            </div>
         </div>
       </div>
     );
@@ -92,10 +85,13 @@ export class SideNavBar extends React.Component
 var top_navbar_div = document.getElementById("top_navbar_id");
 var side_navbar_div = document.getElementById("side_navbar_id");
 var current_user_username = top_navbar_div.getAttribute("current_user_username");
+var current_user_user_id = top_navbar_div.getAttribute("current_user_user_id");
 var profile_pic_name = top_navbar_div.getAttribute("profile_pic_name");
 
-if(top_navbar_div) ReactDOM.render(<TopNavBar current_user_username={current_user_username} />, top_navbar_div);
-if(side_navbar_div) ReactDOM.render(<SideNavBar />, side_navbar_div);
+
+if (top_navbar_div) ReactDOM.render(<TopNavBar current_user_username={current_user_username} current_user_user_id={current_user_user_id} />, top_navbar_div);
+if (side_navbar_div) ReactDOM.render(<SideNavBar />, side_navbar_div);
+
 
 
 
