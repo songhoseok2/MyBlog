@@ -105,4 +105,6 @@ a.article-title:hover
 .side_navbar
 {
   position: fixed;
+  width:425px;
+  height:225px;
 }

@@ -60,13 +60,29 @@ export class SideNavBar extends React.Component
     return (
       <div>
         <div class="content-section side_navbar">
-        <h3>Identity</h3>
-        <p class="text-muted">This is the identity you will be shown as to the public.
-          <ul class="list-group">
-          <button id="reveal_button_id" class="list-group-item list-group-item-light reveal_button active"><span>Revealed</span></button>
-          <button id="incognito_button_id" class="list-group-item list-group-item-light incognito_button"><span>Incognito</span></button>
-          </ul>
-        </p>
+          <h3>Identity</h3>
+            {current_user_username == "Guest" ? 
+              (
+                <div>
+                  <p class="text-muted">Please log in to select identity.</p>
+                  <div class="list-group">
+                    <button id="reveal_button_id" class="list-group-item list-group-item-light reveal_button disabled"><span>Revealed</span></button>
+                    <button id="incognito_button_id" class="list-group-item list-group-item-light incognito_button disabled"><span>Incognito</span></button>
+                  </div>
+                </div>
+              ) : 
+              (
+                <div>
+                  <p class="text-muted">This is the identity you will be shown as to the public.</p>
+                  <div class="list-group">
+                    <button id="reveal_button_id" class="list-group-item list-group-item-light reveal_button active"><span>Revealed</span></button>
+                    <button id="incognito_button_id" class="list-group-item list-group-item-light incognito_button"><span>Incognito</span></button>
+                  </div>
+                </div>
+                
+              )
+            }
+          
         </div>
       </div>
     );
