@@ -12,28 +12,42 @@
             {% endif %}
           {% endwith %}
           
-          <h1 class="mb-3">Posts by {{ user.username }} ({{ posts.total }})</h1>
+
+          <h1 class="mb-3">Posts by {{ user.username }}</h1>
           <div id="blog_posts_id">
             {% for post in posts.items %}
-              <article class="media content-section">
-                <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-                <div class="media-body">
-                  <div class="article-metadata">
-                    <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ post.author.username }}</a>
-                    <small class="text-muted">{{ post.date_posted.strftime('%m/%d/%Y') }}</small>
+              {% if not post.is_anonymous or user.username == current_user_username %}
+                <article class="media content-section">
+                  {% if post.is_anonymous %}
+                    <div class="OP_profile_pic_class"></div>
+                  {% else %}
+                    <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+                  {% endif %}
+                  <div class="media-body">
+                    <div class="article-metadata">
+                      <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">
+                        {{ post.author.username }}
+                        {% if post.is_anonymous %}
+                        - (Rendered anonymous to the public)
+                        {% endif %}
+                      </a>
+                      <small class="text-muted">{{ post.date_posted.strftime('%m/%d/%Y') }}</small>
+                    </div>
+                    <h2><a class="article-title" href="{{ url_for('posts.renderPost', post_id=post.id) }}">{{ post.title }}</a></h2>
+                    <p class="article-content">
+                      {% if post.content|length > 1000 %}
+                        {{ post.content[0:750] }}
+                        ...
+                        <br>.<br>.<br>.
+                      {% else %}
+                        {{ post.content }}
+                      {% endif %}
+                    </p>
                   </div>
-                  <h2><a class="article-title" href="{{ url_for('posts.renderPost', post_id=post.id) }}">{{ post.title }}</a></h2>
-                  <p class="article-content">
-                    {% if post.content|length > 1000 %}
-                      {{ post.content[0:750] }}
-                      ...
-                      <br>.<br>.<br>.
-                    {% else %}
-                      {{ post.content }}
-                    {% endif %}
-                  </p>
-                </div>
-              </article>
+                </article>
+              {% endif%}
+
+
             {% endfor %}
             {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
               {% if page_num %}
