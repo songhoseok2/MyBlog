@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
     image_file      = db.Column(db.String(20), nullable=False, default="default.png")
     password        = db.Column(db.String(60), nullable=False)
     posts           = db.relationship('Post', backref='author', lazy=True)
-    is_annonymous    = db.Column(db.Boolean, nullable=False, default=False)
+    is_anonymous    = db.Column(db.Boolean, nullable=False, default=False)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config["SECRET_KEY"], expires_sec)
@@ -31,7 +31,7 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+        return f"User('{self.username}', '{self.email}', '{self.image_file}', '{self.is_anonymous}')"
 
 class Post(db.Model):
     id              = db.Column(db.Integer, primary_key=True)
@@ -39,7 +39,15 @@ class Post(db.Model):
     date_posted     = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content         = db.Column(db.Text, nullable=False)
     user_id         = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    is_annonymous   = db.Column(db.Boolean, nullable=False)
+    is_anonymous   = db.Column(db.Boolean, nullable=False)
 
     def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}')"
+        return f"Post('{self.title}', '{self.date_posted}', '{self.is_anonymous}')"
+
+
+class anonymous_table(db.Model):
+    email   = db.Column(db.ForeignKey("user.email"), primary_key=True)
+    number  = db.Column(db.Integer, unique=True, nullable=False)
+
+    def __repr__(self):
+        return f"'{self.email}', '{self.number}')"

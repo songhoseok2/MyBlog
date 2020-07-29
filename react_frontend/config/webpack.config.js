@@ -159,6 +159,7 @@ module.exports = function(webpackEnv) {
       paths.navbarJs,
       paths.loginJs,
       paths.registerJs,
+      paths.postJs,
 
 
       // We include the app code last so that if there is a runtime error during

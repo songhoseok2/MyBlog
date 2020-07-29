@@ -10,21 +10,21 @@ function attachActive(new_active_button, old_active_button)
 
 window.onload = function () {
     var reveal_button = document.getElementById("reveal_button_id");
-    var annonymous_button = document.getElementById("annonymous_button_id");
+    var anonymous_button = document.getElementById("anonymous_button_id");
     var top_navbar_div = document.getElementById("top_navbar_id");
-    var is_annonymous = top_navbar_div.getAttribute("is_annonymous") === "True";
+    var is_anonymous = top_navbar_div.getAttribute("is_anonymous") === "True";
     var current_user_username = top_navbar_div.getAttribute("current_user_username");
 
-    if (reveal_button) reveal_button.onclick = function() { attachActive(reveal_button, annonymous_button); }; 
-    if (annonymous_button) annonymous_button.onclick = function() { attachActive(annonymous_button, reveal_button); };
-    is_annonymous ? attachActive(annonymous_button, reveal_button) : attachActive(reveal_button, annonymous_button);
+    if (reveal_button) reveal_button.onclick = function() { attachActive(reveal_button, anonymous_button); }; 
+    if (anonymous_button) anonymous_button.onclick = function() { attachActive(anonymous_button, reveal_button); };
+    is_anonymous ? attachActive(anonymous_button, reveal_button) : attachActive(reveal_button, anonymous_button);
     
     if (current_user_username == "Guest")
     {
         reveal_button.classList.remove("active");
-        annonymous_button.classList.remove("active");
+        anonymous_button.classList.remove("active");
         reveal_button.classList.add("disabled");
-        annonymous_button.classList.add("disabled");
+        anonymous_button.classList.add("disabled");
         document.getElementById("identity_intro_id").innerHTML = "Please log in to select identity.";
     }
     
