@@ -17,13 +17,28 @@
         
           <div id="blog_posts_id">
             <article class="media content-section">
-            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+              {% if post.is_anonymous %}
+                <div class="OP_profile_pic_class"></div>
+              {% else %}
+                <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+              {% endif %}
             <div class="media-body">
               <div class="article-metadata">
-                <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ post.author.username }}</a>
+                {% if post.is_anonymous %}
+                  <a class="mr-2">anonymous_OP</a>
+                {% else %}
+                  <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ post.author.username }}</a>
+                {% endif %}
                 <small class="text-muted">{{ post.date_posted.strftime('%m/%d/%Y') }}</small>
                 {% if post.author == current_user %}
                   <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.updatePost', post_id=post.id) }}">Update</a>
+                  <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.changeIdentity', post_id=post.id) }}">
+                    {% if post.is_anonymous %}
+                      Reveal identity
+                    {% else %}
+                      Go anonymous
+                    {% endif %}
+                  </a>
                   <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
                 {% endif %}
               </div>

@@ -61,3 +61,13 @@ def deletePost(post_id):
     flash("Your post was deleted.", "success")
     return redirect(url_for("main.renderHomePage"))
 
+
+@posts.route("/post/<int:post_id>/identity_change", methods=["GET", "POST"])
+@login_required
+def changeIdentity(post_id):
+    queried_post = Post.query.get_or_404(post_id)
+    queried_post.is_anonymous = not queried_post.is_anonymous
+    db.session.commit()
+    print("DEBUG: post_id", post_id, "'s is_anonymous:", queried_post.is_anonymous, flush=True)
+    return redirect(url_for("posts.renderPost", post_id=post_id))
+

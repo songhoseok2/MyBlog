@@ -12,8 +12,6 @@
             {% endif %}
           {% endwith %}
           
-          
-<!-- TODO: Try shifting the dirty looking if statements into react side -->
           <h1 class="mb-3">Posts by {{ user.username }} ({{ posts.total }})</h1>
           <div id="blog_posts_id">
             {% for post in posts.items %}

@@ -74,7 +74,6 @@ def changeIdentity(user_id, new_identity):
     if queried_user.id == current_user.id:
         queried_user.is_anonymous = True if new_identity == 1 else False
         db.session.commit()
-    # return redirect(url_for("main.renderHomePage"))
     return ('', 204)
 
 
