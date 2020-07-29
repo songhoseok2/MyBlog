@@ -12,10 +12,10 @@ class User(db.Model, UserMixin):
     id              = db.Column(db.Integer, primary_key=True)
     username        = db.Column(db.String(20), unique=True, nullable=False)
     email           = db.Column(db.String(120), unique=True, nullable=False)
-    image_file      = db.Column(db.String(20), nullable=False, default="default.jpg")
+    image_file      = db.Column(db.String(20), nullable=False, default="default.png")
     password        = db.Column(db.String(60), nullable=False)
     posts           = db.relationship('Post', backref='author', lazy=True)
-    is_incognito    = db.Column(db.Boolean, nullable=False, default=False)
+    is_annonymous    = db.Column(db.Boolean, nullable=False, default=False)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config["SECRET_KEY"], expires_sec)
@@ -39,7 +39,7 @@ class Post(db.Model):
     date_posted     = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content         = db.Column(db.Text, nullable=False)
     user_id         = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    is_incognito   = db.Column(db.Boolean, nullable=False)
+    is_annonymous   = db.Column(db.Boolean, nullable=False)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"

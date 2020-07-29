@@ -71,7 +71,7 @@ export class SideNavBar extends React.Component
                   </form>
                   <form action={"/" + current_user_user_id + "/1/identity_change"} method="POST">
                     <div class="list-group">
-                      <button id="incognito_button_id" class="list-group-item list-group-item-light btn incognito_button" type="submit"><span>Incognito</span></button>
+                      <button id="annonymous_button_id" class="list-group-item list-group-item-light btn annonymous_button" type="submit"><span>Annonymous</span></button>
                     </div>
                   </form>
                 </div>

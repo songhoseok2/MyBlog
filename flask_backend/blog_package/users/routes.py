@@ -72,8 +72,7 @@ def renderAccount():
 def changeIdentity(user_id, new_identity):
     queried_user = User.query.get_or_404(user_id)
     if queried_user.id == current_user.id:
-        queried_user.is_incognito = True if new_identity == 1 else False
-        print("DEBUG: ", queried_user.username, "'s new is_incognito:", queried_user.is_incognito, flush=True)
+        queried_user.is_annonymous = True if new_identity == 1 else False
         db.session.commit()
     # return redirect(url_for("main.renderHomePage"))
     return ('', 204)

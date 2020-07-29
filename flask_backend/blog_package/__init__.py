@@ -10,7 +10,7 @@ def getCurrentUserJson(current_user):
         "current_user_username": current_user.username,
         "current_user_user_id": current_user.id if current_user.username != "Guest" else None,
         "profile_pic_name": current_user.image_file if current_user.username != "Guest" else None,
-        "is_incognito": current_user.is_incognito if current_user.username != "Guest" else None
+        "is_annonymous": current_user.is_annonymous if current_user.username != "Guest" else None
     }
 
 
