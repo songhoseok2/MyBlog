@@ -24,7 +24,7 @@ def makeNewPost():
 @posts.route("/post/<int:post_id>", methods=["GET", "POST"])
 def renderPost(post_id):
     queried_post = Post.query.get_or_404(post_id)
-    queried_comments = Comment.query.filter_by(post_id=post_id).order_by(Comment.date_posted.desc())
+    queried_comments = Comment.query.filter_by(post_id=post_id).order_by(Comment.date_posted.asc())
     print("DEBUG: queried_comments:", queried_comments, flush=True)
     print("DEBUG: queried_comments.all():", queried_comments.all(), flush=True)
     print("DEBUG: post_id:", post_id)
@@ -35,7 +35,8 @@ def renderPost(post_id):
     anonymous_number_table = []
 
     for current_entry in queried_anonymous_table:
-        anonymous_number_table.append({current_entry.user_id: current_entry.number})
+        anonymous_number_table.append({"user_id": current_entry.user_id,
+                                       "number": current_entry.number})
     print("DEBUG: anonymous_number_table:", anonymous_number_table, flush=True)
 
     form = CommentForm()
@@ -57,7 +58,7 @@ def renderPost(post_id):
         db.session.commit()
         flash("Your comment has been created.", "success")
         return redirect(url_for("posts.renderPost", post_id=post_id))
-    return render_template("post.html", title=queried_post.title, form=form, post=queried_post, comments=queried_comments.all(), anonymous_table=queried_anonymous_table, **getCurrentUserJson(current_user))
+    return render_template("post.html", title=queried_post.title, form=form, post=queried_post, comments=queried_comments.all(), anonymous_number_table=anonymous_number_table, **getCurrentUserJson(current_user))
 
 
 @posts.route("/post/<int:post_id>/update", methods=["GET", "POST"])
@@ -111,7 +112,6 @@ def changeCommentIdentity(post_id, comment_id):
     queried_comment = Comment.query.get_or_404(comment_id)
     queried_comment.is_anonymous = not queried_comment.is_anonymous
     db.session.commit()
-    print("DEBUG: post_id", comment_id, "'s is_anonymous:", queried_comment.is_anonymous, flush=True)
     return redirect(url_for("posts.renderPost", post_id=post_id))
 
 

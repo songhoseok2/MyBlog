@@ -70,7 +70,27 @@
                           <a class="mr-2">Anonymous_OP</a>
                         {% endif %}
                       {% else %}
-                        <a class="mr-2">Anonymous - {{anonymous_number_table[comment.user_id]}}</a>
+                        <!-- <p>test1: {{anonymous_number_table}}</p>
+                        <p>test2: {{anonymous_number_table[0]}}</p>
+                        <p>test3: {{anonymous_number_table[comment.user_id]}}</p>
+                        <p>comment.user_id: {{anonymous_number_table[comment.user_id]}}</p>
+                        
+                        {% for anonymous_number in anonymous_number_table %}
+                          <br>
+                          <p>test4: anonymous_number: {{anonymous_number}}</p>
+                          <p>test5: anonymous_number[0]: {{anonymous_number[0]}}</p>
+                          <p>test6: anonymous_number[1]: {{anonymous_number[1]}}</p>
+                        {% endfor %}
+
+                        <a class="mr-2">Anonymous - {{anonymous_number_table[comment.user_id]}}</a> -->
+                        
+                        
+
+                        {% for anonymous_number in anonymous_number_table %}
+                          {% if anonymous_number["user_id"] == comment.user_id %}
+                            <a class="mr-2">Anonymous - {{anonymous_number["number"]}}</a>
+                          {% endif %}
+                        {% endfor %}
                       {% endif %}
                      
                    
@@ -81,7 +101,7 @@
                     {% if comment.user_id == current_user_user_id %}
                       <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.updateComment', post_id=post.id, comment_id=comment.id) }}">Update</a>
                       <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.changeCommentIdentity', post_id=post.id, comment_id=comment.id) }}">
-                        {% if post.is_anonymous %}
+                        {% if comment.is_anonymous %}
                           Reveal identity
                         {% else %}
                           Go anonymous
