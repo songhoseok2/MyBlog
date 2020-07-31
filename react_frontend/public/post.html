@@ -25,9 +25,9 @@
             <div class="article-metadata">
               {% if post.is_anonymous %}
                 {% if post.author.username == current_user_username %}
-                  <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ post.author.username }}<br> - (Rendered anonymous to the public)</a>
+                  <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ post.author.username }} - (Rendered anonymous to the public) <br></a>
                 {% else %}
-                  <a class="mr-2">anonymous_OP</a>
+                  <a class="mr-2">Anonymous_OP</a>
                 {% endif %}
               {% else %}
                 <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ post.author.username }}</a>
@@ -63,29 +63,13 @@
                 <div class="media-body">
                   <div class="article-metadata">
                     {% if comment.is_anonymous %}
-                      {% if comment.user_id == post.author %}
+                      {% if comment.user_id == post.author.id %}
                         {% if comment.user_id == current_user_user_id %}
-                          <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ comment.commenter.username }}<br> - (Rendered anonymous to the public)</a>
+                          <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=comment.commenter.username)}}">{{ comment.commenter.username }} - (Rendered anonymous to the public) <br></a>
                         {% else %}
                           <a class="mr-2">Anonymous_OP</a>
                         {% endif %}
                       {% else %}
-                        <!-- <p>test1: {{anonymous_number_table}}</p>
-                        <p>test2: {{anonymous_number_table[0]}}</p>
-                        <p>test3: {{anonymous_number_table[comment.user_id]}}</p>
-                        <p>comment.user_id: {{anonymous_number_table[comment.user_id]}}</p>
-                        
-                        {% for anonymous_number in anonymous_number_table %}
-                          <br>
-                          <p>test4: anonymous_number: {{anonymous_number}}</p>
-                          <p>test5: anonymous_number[0]: {{anonymous_number[0]}}</p>
-                          <p>test6: anonymous_number[1]: {{anonymous_number[1]}}</p>
-                        {% endfor %}
-
-                        <a class="mr-2">Anonymous - {{anonymous_number_table[comment.user_id]}}</a> -->
-                        
-                        
-
                         {% for anonymous_number in anonymous_number_table %}
                           {% if anonymous_number["user_id"] == comment.user_id %}
                             <a class="mr-2">Anonymous - {{anonymous_number["number"]}}</a>
