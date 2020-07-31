@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     image_file      = db.Column(db.String(20), nullable=False, default="default.png")
     password        = db.Column(db.String(60), nullable=False)
     posts           = db.relationship('Post', backref='author', lazy=True)
+    comments        = db.relationship('Comment', backref='commenter', lazy=True)
     is_anonymous    = db.Column(db.Boolean, nullable=False, default=False)
 
     def get_reset_token(self, expires_sec=1800):
@@ -39,15 +40,27 @@ class Post(db.Model):
     date_posted     = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content         = db.Column(db.Text, nullable=False)
     user_id         = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    is_anonymous   = db.Column(db.Boolean, nullable=False)
+    is_anonymous    = db.Column(db.Boolean, nullable=False)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}', '{self.is_anonymous}')"
 
-
-class anonymous_table(db.Model):
-    email   = db.Column(db.ForeignKey("user.email"), primary_key=True)
-    number  = db.Column(db.Integer, unique=True, nullable=False)
+class Comment(db.Model):
+    id              = db.Column(db.Integer, primary_key=True)
+    post_id         = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
+    user_id         = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    date_posted     = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    content         = db.Column(db.Text, nullable=False)
+    is_anonymous    = db.Column(db.Boolean, nullable=False)
 
     def __repr__(self):
-        return f"'{self.email}', '{self.number}')"
+        return f"Comment('{self.post_id}', '{self.date_posted}', '{self.is_anonymous}')"
+
+class Anonymous_table(db.Model):
+    id      = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    number  = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"Anonymous_table'{self.post_id}', {self.user_id}', '{self.number}')"

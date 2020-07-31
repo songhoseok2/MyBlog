@@ -211,6 +211,7 @@ function copyPublicFolder() {
                      file !== paths.registerHtml ||
                      file !== paths.accountHtml ||
                      file !== paths.createPostHtml ||
+                     file !== paths.updateCommentHtml ||
                      file !== paths.postHtml ||
                      file !== paths.userPostsHtml ||
                      file !== paths.resetRequestHtml ||

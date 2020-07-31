@@ -62,6 +62,7 @@ module.exports = {
   registerHtml: resolveApp('public/register.html'), registerJs: resolveModule(resolveApp, 'src/javascripts/react_scripts/register'),
   accountHtml: resolveApp('public/account.html'),
   createPostHtml: resolveApp('public/create_post.html'),
+  updateCommentHtml: resolveApp('public/update_comment.html'),
   postHtml: resolveApp('public/post.html'), postJs: resolveModule(resolveApp, 'src/javascripts/react_scripts/posts'),
   userPostsHtml: resolveApp('public/user_posts.html'),
   resetRequestHtml: resolveApp('public/reset_request.html'),

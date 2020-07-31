@@ -14,59 +14,158 @@
           
           
           
-        
-          <div id="blog_posts_id">
-            <article class="media content-section">
+          <!-- original post -->
+          <article class="media content-section">
+            {% if post.is_anonymous %}
+              <div class="OP_profile_pic_class"></div>
+            {% else %}
+              <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+            {% endif %}
+          <div class="media-body">
+            <div class="article-metadata">
               {% if post.is_anonymous %}
-                <div class="OP_profile_pic_class"></div>
-              {% else %}
-                <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-              {% endif %}
-            <div class="media-body">
-              <div class="article-metadata">
-                {% if post.is_anonymous %}
-                  <a class="mr-2">anonymous_OP</a>
+                {% if post.author.username == current_user_username %}
+                  <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ post.author.username }}<br> - (Rendered anonymous to the public)</a>
                 {% else %}
-                  <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ post.author.username }}</a>
+                  <a class="mr-2">anonymous_OP</a>
                 {% endif %}
-                <small class="text-muted">{{ post.date_posted.strftime('%m/%d/%Y') }}</small>
-                {% if post.author == current_user %}
-                  <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.updatePost', post_id=post.id) }}">Update</a>
-                  <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.changeIdentity', post_id=post.id) }}">
-                    {% if post.is_anonymous %}
-                      Reveal identity
-                    {% else %}
-                      Go anonymous
-                    {% endif %}
-                  </a>
-                  <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                {% endif %}
-              </div>
-              <h2 class="article-title">{{ post.title }}</h2>
-              <p class="article-content">{{ post.content }}</p>
+              {% else %}
+                <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ post.author.username }}</a>
+              {% endif %}
+              <small class="text-muted">{{ post.date_posted.strftime('%m/%d/%Y') }}</small>
+              {% if post.author == current_user %}
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.updatePost', post_id=post.id) }}">Update</a>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.changePostIdentity', post_id=post.id) }}">
+                  {% if post.is_anonymous %}
+                    Reveal identity
+                  {% else %}
+                    Go anonymous
+                  {% endif %}
+                </a>
+                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deletePostModal">Delete</button>
+              {% endif %}
             </div>
-            </article>
-            <!-- Modal -->
-            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+            <h2 class="article-title">{{ post.title }}</h2>
+            <p class="article-content">{{ post.content }}</p>
+          </div>
+          </article>
+
+
+          <!-- comment view section -->
+          <div class="comment-section">
+            {% for comment in comments %}
+              <article class="media content-section">
+                {% if comment.is_anonymous %}
+                  <div class="OP_profile_pic_class"></div>
+                {% else %}
+                  <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + comment.commenter.image_file) }}">
+                {% endif %}
+                <div class="media-body">
+                  <div class="article-metadata">
+                    {% if comment.is_anonymous %}
+                      {% if comment.user_id == post.author %}
+                        {% if comment.user_id == current_user_user_id %}
+                          <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ comment.commenter.username }}<br> - (Rendered anonymous to the public)</a>
+                        {% else %}
+                          <a class="mr-2">Anonymous_OP</a>
+                        {% endif %}
+                      {% else %}
+                        <a class="mr-2">Anonymous - {{anonymous_number_table[comment.user_id]}}</a>
+                      {% endif %}
+                     
+                   
+                    {% else %}
+                      <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=comment.commenter.username)}}">{{ comment.commenter.username }}</a>
+                    {% endif %}
+                    <small class="text-muted">{{ post.date_posted.strftime('%m/%d/%Y') }}</small>
+                    {% if comment.user_id == current_user_user_id %}
+                      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.updateComment', post_id=post.id, comment_id=comment.id) }}">Update</a>
+                      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.changeCommentIdentity', post_id=post.id, comment_id=comment.id) }}">
+                        {% if post.is_anonymous %}
+                          Reveal identity
+                        {% else %}
+                          Go anonymous
+                        {% endif %}
+                      </a>
+                      <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="{{'#deleteCommentModal' + (comment.id | string)}}">Delete</button>
+                    {% endif %}
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <form action="{{ url_for('posts.deletePost', post_id=post.id) }}" method="POST">
-                      <input class="btn btn-danger" type="submit" value="Delete">
-                    </form>
+                  <p class="article-content">{{ comment.content }}</p>
+                </div>
+              </article>
+
+
+              <!-- Comment Modal -->
+              <div class="modal fade" id="{{'deleteCommentModal' + (comment.id | string)}}" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deleteCommentModalLabel">Delete Comment?</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <form action="{{ url_for('posts.deleteComment', post_id=post.id, comment_id=comment.id) }}" method="POST">
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                      </form>
+                    </div>
                   </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          
+
+          <!-- comment post section -->
+          <div class="content-section">
+            <form method="POST" action="">
+              {{ form.hidden_tag() }}
+              <fieldset class="form-group">
+                <div class="form-group">
+                  {{ form.content.label(class="form-control-label") }}
+                  {% if form.content.errors %}
+                    {{ form.content(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.content.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{ form.content(class="form-control form-control-lg") }}
+                  {% endif %}
+                </div>
+              </fieldset>
+              <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+              </div>
+            </form>
+          </div>
+
+
+          <!-- Post Modal -->
+          <div class="modal fade" id="deletePostModal" tabindex="-1" role="dialog" aria-labelledby="deletePostModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deletePostModalLabel">Delete Post?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <form action="{{ url_for('posts.deletePost', post_id=post.id) }}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                  </form>
                 </div>
               </div>
             </div>
           </div>
+
           
+
 
 
           
