@@ -115,7 +115,7 @@ def changeCommentIdentity(post_id, comment_id):
     return redirect(url_for("posts.renderPost", post_id=post_id))
 
 
-@posts.route("/post/<int:post_id>/<int:comment_id>/update", methods=["GET", "POST"])
+@posts.route("/<int:post_id>/<int:comment_id>/update", methods=["GET", "POST"])
 @login_required
 def updateComment(post_id, comment_id):
     queried_comment = Comment.query.get_or_404(comment_id)
