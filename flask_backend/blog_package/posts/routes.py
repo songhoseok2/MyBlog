@@ -25,30 +25,18 @@ def makeNewPost():
 def renderPost(post_id):
     queried_post = Post.query.get_or_404(post_id)
     queried_comments = Comment.query.filter_by(post_id=post_id).order_by(Comment.date_posted.asc())
-    print("DEBUG: queried_comments:", queried_comments, flush=True)
-    print("DEBUG: queried_comments.all():", queried_comments.all(), flush=True)
-    print("DEBUG: post_id:", post_id)
     queried_anonymous_table = Anonymous_table.query.filter_by(post_id=post_id)
     queried_anonymous_table = queried_anonymous_table.all()
-    print("DEBUG: anonymous_table:", queried_anonymous_table, flush=True)
-    print("DEBUG: anonymous_table.all():", queried_anonymous_table, flush=True)
     anonymous_number_table = []
 
     for current_entry in queried_anonymous_table:
         anonymous_number_table.append({"user_id": current_entry.user_id,
                                        "number": current_entry.number})
-    print("DEBUG: anonymous_number_table:", anonymous_number_table, flush=True)
 
     form = CommentForm()
     if form.validate_on_submit():
-        # print("DEBUG: comment form submit buttom pressed", flush=True)
         comment = Comment(post_id=queried_post.id, content=form.content.data, commenter=current_user, is_anonymous=current_user.is_anonymous)
         db.session.add(comment)
-
-        # print("DEBUG: comment pushed to database", flush=True)
-        #
-        # print("DEBUG: Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id):", Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id))
-        # print("DEBUG: Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id).first():", Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id).first())
 
         if current_user != queried_post.author and not Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id).first():
             new_commenter_anonymous_number = Anonymous_table.query.filter_by(post_id=post_id).count()
@@ -111,7 +99,6 @@ def changePostIdentity(post_id):
     queried_post = Post.query.get_or_404(post_id)
     queried_post.is_anonymous = not queried_post.is_anonymous
     db.session.commit()
-    # print("DEBUG: post_id", post_id, "'s is_anonymous:", queried_post.is_anonymous, flush=True)
     return redirect(url_for("posts.renderPost", post_id=post_id))
 
 
