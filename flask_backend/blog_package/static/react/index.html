@@ -29,7 +29,7 @@
                       {% if post.author.username == current_user_username %}
                         <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ post.author.username }} - (Rendered anonymous to the public) <br></a>
                       {% else %}
-                        <a class="mr-2">anonymous_OP</a>
+                        <a class="mr-2">Anonymous_OP</a>
                       {% endif %}
                     {% else %}
                       <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=post.author.username)}}">{{ post.author.username }}</a>

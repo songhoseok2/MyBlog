@@ -41,17 +41,17 @@ def renderPost(post_id):
 
     form = CommentForm()
     if form.validate_on_submit():
-        print("DEBUG: comment form submit buttom pressed", flush=True)
+        # print("DEBUG: comment form submit buttom pressed", flush=True)
         comment = Comment(post_id=queried_post.id, content=form.content.data, commenter=current_user, is_anonymous=current_user.is_anonymous)
         db.session.add(comment)
 
-        print("DEBUG: comment pushed to database", flush=True)
+        # print("DEBUG: comment pushed to database", flush=True)
+        #
+        # print("DEBUG: Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id):", Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id))
+        # print("DEBUG: Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id).first():", Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id).first())
 
-        print("DEBUG: Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id):", Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id))
-        print("DEBUG: Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id).first():", Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id).first())
-
-        if not Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id).first():
-            new_commenter_anonymous_number = Anonymous_table.query.count()
+        if current_user != queried_post.author and not Anonymous_table.query.filter_by(post_id=post_id, user_id=current_user.id).first():
+            new_commenter_anonymous_number = Anonymous_table.query.filter_by(post_id=post_id).count()
             anonymous_number = Anonymous_table(post_id=post_id, user_id=current_user.id, number=new_commenter_anonymous_number)
             db.session.add(anonymous_number)
 
@@ -91,6 +91,15 @@ def deletePost(post_id):
     if queried_post.author != current_user:
         abort(403)
     db.session.delete(queried_post)
+
+    queried_comments = Comment.query.filter_by(post_id=post_id)
+    queried_anonymous_tables = Anonymous_table.query.filter_by(post_id=post_id)
+
+    for comment in queried_comments:
+        db.session.delete(comment)
+    for anonymous_table in queried_anonymous_tables:
+        db.session.delete(anonymous_table)
+
     db.session.commit()
     flash("Your post was deleted.", "success")
     return redirect(url_for("main.renderHomePage"))
@@ -102,7 +111,7 @@ def changePostIdentity(post_id):
     queried_post = Post.query.get_or_404(post_id)
     queried_post.is_anonymous = not queried_post.is_anonymous
     db.session.commit()
-    print("DEBUG: post_id", post_id, "'s is_anonymous:", queried_post.is_anonymous, flush=True)
+    # print("DEBUG: post_id", post_id, "'s is_anonymous:", queried_post.is_anonymous, flush=True)
     return redirect(url_for("posts.renderPost", post_id=post_id))
 
 
