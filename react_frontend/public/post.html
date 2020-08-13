@@ -81,7 +81,7 @@
                     {% else %}
                       <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=comment.commenter.username)}}">{{ comment.commenter.username }}</a>
                     {% endif %}
-                    <small class="text-muted">{{ post.date_posted.strftime('%m/%d/%Y') }}</small>
+                    <small class="text-muted">{{ comment.date_posted.strftime('%m/%d/%Y') }}</small>
                     {% if comment.user_id == current_user_user_id %}
                       <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.updateComment', post_id=post.id, comment_id=comment.id) }}">Update</a>
                       <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.changeCommentIdentity', post_id=post.id, comment_id=comment.id) }}">
