@@ -63,21 +63,19 @@
                 <div class="media-body">
                   <div class="article-metadata">
                     {% if comment.is_anonymous %}
-                      {% if comment.user_id == post.author.id %}
-                        {% if comment.user_id == current_user_user_id %}
-                          <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=comment.commenter.username)}}">{{ comment.commenter.username }} - (Rendered anonymous to the public) <br></a>
-                        {% else %}
-                          <a class="mr-2">Anonymous_OP</a>
-                        {% endif %}
+                      {% if comment.user_id == current_user_user_id %}
+                        <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=comment.commenter.username)}}">{{ comment.commenter.username }} - (Rendered anonymous to the public) <br></a>
                       {% else %}
-                        {% for anonymous_number in anonymous_number_table %}
-                          {% if anonymous_number["user_id"] == comment.user_id %}
-                            <a class="mr-2">Anonymous - {{anonymous_number["number"]}}</a>
-                          {% endif %}
-                        {% endfor %}
+                        {% if comment.user_id == post.author.id %}
+                          <a class="mr-2">Anonymous_OP</a>
+                        {% else %}
+                          {% for anonymous_number in anonymous_number_table %}
+                            {% if anonymous_number["user_id"] == comment.user_id %}
+                              <a class="mr-2">Anonymous - {{anonymous_number["number"]}}</a>
+                            {% endif %}
+                          {% endfor %}
+                        {% endif %}
                       {% endif %}
-                     
-                   
                     {% else %}
                       <a class="mr-2" href="{{ url_for('users.renderUserPosts', selected_username=comment.commenter.username)}}">{{ comment.commenter.username }}</a>
                     {% endif %}
